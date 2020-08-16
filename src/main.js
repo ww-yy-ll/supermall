@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 
 Vue.config.productionTip = false
+// 创建$bus
+Vue.prototype.$bus = new Vue()
 
 new Vue({
   render: h => h(App),

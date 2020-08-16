@@ -1,7 +1,7 @@
 <template>
-    <div class="goods-item">
+    <div class="goods-item" @click="itemClick">
 <!--   图片地址在返回的data数据的show里面     -->
-        <img :src="goodsItem.show.img" alt="">
+        <img :src="shoeImages" alt="" @load="imageLoad">
         <div class="goods-info">
             <p>{{goodsItem.title}}</p>
             <span class="price">{{goodsItem.price}}</span>
@@ -19,6 +19,37 @@
                 default() {
                     return {};
                 }
+            }
+        },
+        computed:{
+            shoeImages(){
+                // 接口不同，图片地址所在位置可能不同，还是要看接口中图片存放的位置
+                return this.goodsItem.image || this.goodsItem.show.img
+            }
+        },
+        methods:{
+            // 监听每张图片加载
+            imageLoad(){
+                // console.log('imageLoad');
+                // 将图片加载事件发射出去
+                // this.$bus.$emit('itemImageLoad')
+
+                // 方法一：各自刷新自己所在的页面，进入详情页则不刷新首页的东西
+                /*
+                if(this.$route.path.indexOf('/home')){
+                    this.$bus.$emit('homeItemImageLoad')
+                }else if (this.$route.path.indexOf('/detail')){
+                    this.$bus.$emit('detailItemImageLoad')
+                }*/
+                // 方法二：
+                this.$bus.$emit('itemImageLoad')
+
+            },
+            // 监听列表项点击，跳转到对应的详情页
+            itemClick() {
+                // console.log('跳转到对应的详情页');
+                // 需要返回上一页用push，不需要返回上一页用replace
+                this.$router.push('/detail/' + this.goodsItem.iid)
             }
         }
     }
