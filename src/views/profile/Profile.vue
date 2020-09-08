@@ -1,126 +1,165 @@
 <template>
-  <div>
-    <scroll class="content">
-      <ul>
-        <li>个人信息1</li>
-        <li>个人信息2</li>
-        <li>个人信息3</li>
-        <li>个人信息4</li>
-        <li>个人信息5</li>
-        <li>个人信息6</li>
-        <li>个人信息7</li>
-        <li>个人信息8</li>
-        <li>个人信息9</li>
-        <li>个人信息10</li>
-        <li>个人信息11</li>
-        <li>个人信息12</li>
-        <li>个人信息13</li>
-        <li>个人信息14</li>
-        <li>个人信息15</li>
-        <li>个人信息16</li>
-        <li>个人信息17</li>
-        <li>个人信息18</li>
-        <li>个人信息19</li>
-        <li>个人信息20</li>
-        <li>个人信息21</li>
-        <li>个人信息22</li>
-        <li>个人信息23</li>
-        <li>个人信息24</li>
-        <li>个人信息25</li>
-        <li>个人信息26</li>
-        <li>个人信息27</li>
-        <li>个人信息28</li>
-        <li>个人信息29</li>
-        <li>个人信息30</li>
-        <li>个人信息31</li>
-        <li>个人信息32</li>
-        <li>个人信息33</li>
-        <li>个人信息34</li>
-        <li>个人信息35</li>
-        <li>个人信息36</li>
-        <li>个人信息37</li>
-        <li>个人信息38</li>
-        <li>个人信息39</li>
-        <li>个人信息40</li>
-        <li>个人信息41</li>
-        <li>个人信息42</li>
-        <li>个人信息43</li>
-        <li>个人信息44</li>
-        <li>个人信息45</li>
-        <li>个人信息46</li>
-        <li>个人信息47</li>
-        <li>个人信息48</li>
-        <li>个人信息49</li>
-        <li>个人信息50</li>
-        <li>个人信息51</li>
-        <li>个人信息52</li>
-        <li>个人信息53</li>
-        <li>个人信息54</li>
-        <li>个人信息55</li>
-        <li>个人信息56</li>
-        <li>个人信息57</li>
-        <li>个人信息58</li>
-        <li>个人信息59</li>
-        <li>个人信息60</li>
-        <li>个人信息61</li>
-        <li>个人信息62</li>
-        <li>个人信息63</li>
-        <li>个人信息64</li>
-        <li>个人信息65</li>
-        <li>个人信息66</li>
-        <li>个人信息67</li>
-        <li>个人信息68</li>
-        <li>个人信息69</li>
-        <li>个人信息70</li>
-        <li>个人信息71</li>
-        <li>个人信息72</li>
-        <li>个人信息73</li>
-        <li>个人信息74</li>
-        <li>个人信息75</li>
-        <li>个人信息76</li>
-        <li>个人信息77</li>
-        <li>个人信息78</li>
-        <li>个人信息79</li>
-        <li>个人信息80</li>
-        <li>个人信息81</li>
-        <li>个人信息82</li>
-        <li>个人信息83</li>
-        <li>个人信息84</li>
-        <li>个人信息85</li>
-        <li>个人信息86</li>
-        <li>个人信息87</li>
-        <li>个人信息88</li>
-        <li>个人信息89</li>
-        <li>个人信息90</li>
-        <li>个人信息91</li>
-        <li>个人信息92</li>
-        <li>个人信息93</li>
-        <li>个人信息94</li>
-        <li>个人信息95</li>
-        <li>个人信息96</li>
-        <li>个人信息97</li>
-        <li>个人信息98</li>
-        <li>个人信息99</li>
-        <li>个人信息100</li>
-      </ul>
-    </scroll>
+  <div id="profile">
+    <nav-bar class="nav-bar"><div slot="center">YL商城</div></nav-bar>
+    <!--顶部-->
+    <div class="top">
+      <img src="~assets/img/profile/avatar.svg" alt="">
+      <div>
+        <p>登录/注册</p>
+        <div class="top-item">
+          <img src="~assets/img/profile/phone.svg">
+          <span>暂无绑定手机号</span>
+        </div>
+      </div>
+    </div>
+    <!--第一行-->
+    <div class="content">
+      <div class="content-item">
+        <span class="content-item-one">0.00</span>元
+        <p class="content-item-two">我的余额</p>
+      </div>
+      <div class="content-item">
+        <span class="content-item-one">0</span>个
+        <p class="content-item-two">我的优惠</p>
+      </div>
+      <div class="content-item">
+      <span class="content-item-one">0</span>分
+      <p class="content-item-two">我的积分</p>
+    </div>
+    </div>
+    <!--第二行-->
+    <div class="center">
+      <div class="center-item">
+        <img src="~assets/img/profile/message.svg" alt="">
+        <span>我的消息</span>
+      </div>
+      <div class="center-item">
+        <img src="~assets/img/profile/shopping.svg" alt="">
+        <span>积分商城</span>
+      </div>
+      <div class="center-item">
+        <img src="~assets/img/profile/vip.svg" alt="">
+        <span>会员卡</span>
+      </div>
+    </div>
+    <!--第三行-->
+    <div class="center">
+      <div class="center-item">
+        <img src="~assets/img/profile/cart.svg" alt="">
+        <span>我的购物车</span>
+      </div>
+      <div class="center-item">
+        <img src="~assets/img/profile/pointer.svg" alt="">
+        <span>下载购物APP</span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+  import NavBar from 'components/common/navbar/NavBar'
   import Scroll from 'components/common/scroll/Scroll'
     export default {
         name: "Profile",
       components: {
+        NavBar,
         Scroll
       }
     }
 </script>
 
 <style scoped>
-  .content {
-    height: 300px;
-    background-color: pink;
-    overflow: hidden;
+  #profile {
+    background-color: #F2F2F2;
   }
+  .nav-bar {
+    background-color: var(--color-tint);
+    color: #fff;
+    font-weight: 700;
+  }
+  .top {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: var(--color-tint);
+    color:  #fff;
+  }
+  .top img {
+    width: 70px;
+    height: 70px;
+  }
+  .top p {
+    margin-left: 5px;
+  }
+  .top-item {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+  }
+  .top-item img {
+    width: 25px;
+    height: 25px;
+  }
+  .top span {
+  }
+  .top::after {
+    content: ">";
+    position: absolute;
+    right: 20px;
+    font-size: 18px;
+  }
+  /* 第一行 */
+  .content {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    background-color: #fff;
+  }
+  .content-item {
+    flex: 1;
+    text-align: center;
+    padding: 25px;
+  }
+  .content-item-one{
+    color: orangered;
+    font-size: 25px;
+    font-weight: 700;
+  }
+  .content-item-two {
+    margin-top: 5px;
+  }
+  .content-item:nth-child(1){
+    border-right: 1px solid #eee;
+  }
+  .content-item:nth-child(2){
+    border-right: 1px solid #eee;
+  }
+/*第二行*/
+  .center {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 10px;
+    background-color: #fff;
+  }
+  .center img {
+    width: 25px;
+    height: 25px;
+  }
+  .center-item {
+    display: flex;
+    align-items: center;
+
+    padding: 10px;
+  }
+  .center-item span {
+    margin-left: 10px;
+    color: #666;
+    font-size: 16px;
+  }
+  .center-item:nth-child(-n+2) {
+    border-bottom: 1px solid #eee;
+  }
+
 </style>

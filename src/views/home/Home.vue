@@ -101,7 +101,7 @@
 
         },
         mounted(){
-            /*
+
             // 使用防抖函数,定义 refresh 接收防抖函数debounce的返回值
             const refresh = debounce(this.$refs.scroll.refresh, 500)
             // 对监听的事件进行ba保存
@@ -112,7 +112,7 @@
                 // this.$refs.scroll.refresh()
             },
             // 1. 监听GoodsItem中图片加载完成
-            this.$bus.$on('itemImageLoad', this.itemImgListener)*/
+            this.$bus.$on('itemImageLoad', this.itemImgListener)
             // console.log('mounted');
         },
         destroyed(){
@@ -121,6 +121,7 @@
         // 进入页面时调用
         activated(){
             // console.log('activated');
+            // 回到离开前的状态
             this.$refs.scroll.scrollTo(0, this.saveY, 0)
             // 注意要刷新，否则频繁切换页面时会有问题
             this.$refs.scroll.refresh()

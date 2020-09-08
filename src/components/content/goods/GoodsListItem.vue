@@ -1,7 +1,8 @@
 <template>
     <div class="goods-item" @click="itemClick">
 <!--   图片地址在返回的data数据的show里面     -->
-        <img :src="shoeImages" alt="" @load="imageLoad">
+<!--        <img v-lazy="shoeImages" alt="" @load="imageLoad">-->
+        <img :src="showImages" alt="" @load="imageLoad">
         <div class="goods-info">
             <p>{{goodsItem.title}}</p>
             <span class="price">{{goodsItem.price}}</span>
@@ -22,7 +23,7 @@
             }
         },
         computed:{
-            shoeImages(){
+            showImages(){
                 // 接口不同，图片地址所在位置可能不同，还是要看接口中图片存放的位置
                 return this.goodsItem.image || this.goodsItem.show.img
             }

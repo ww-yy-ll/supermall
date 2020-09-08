@@ -23,7 +23,7 @@
     left: 0;
     right: 0;
     /*  盒子阴影 X偏移量，Y偏移量，模糊范围大小，模糊颜色 */
-    box-shadow: 0px -3px 10px rgba(0,0,0,0.3); /*  阴影在盒子的上面 Y = -3px；阴影在盒子的下面 Y = 3px */
+    box-shadow: 0px -3px 5px rgba(0,0,0,0.1); /*  阴影在盒子的上面 Y = -3px；阴影在盒子的下面 Y = 3px */
   }
 
 </style>

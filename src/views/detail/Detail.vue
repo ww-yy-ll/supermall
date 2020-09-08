@@ -16,6 +16,11 @@
             <detail-comment-info ref="comment" :comment-info="commentInfo"/>
             <goods-list ref="recommend" :goods="recomends"/>
         </scroll>
+        <!--底部工具栏-->
+        <detail-bottom-bar @addToCart="addToCart"/>
+        <!-- 回到顶部 按钮 isShowBackTop为true时显示按钮 -->
+        <back-top @click.native="backClick" v-show="isShowBackTop"/>
+        <toast :message="toastMessage" :show="toastShow"/>
     </div>
 </template>
 
@@ -27,13 +32,17 @@
     import DetailGoodsInfo from './childComps/DetailGoodsInfo'
     import DetailParamInfo from './childComps/DetailParamInfo'
     import DetailCommentInfo from './childComps/DetailCommentInfo'
+    import DetailBottomBar from './childComps/DetailBottomBar'
 
     import Scroll from 'components/common/scroll/Scroll'
     import GoodsList from 'components/content/goods/GoodsList'
+    import BackTop from 'components/content/backTop/BackTop'
+    import Toast from 'components/common/toast/Toast'
 
     import {getDetail, Goods, Shop, GoodsParam, getRecommend} from 'network/detail'
     import {debounce} from 'common/utils'
     import {itemListenerMixin} from 'common/mixin'
+    import { mapActions} from 'vuex'
 
     export default {
         name: "Detial",
@@ -45,8 +54,11 @@
             DetailGoodsInfo,
             DetailParamInfo,
             DetailCommentInfo,
+            DetailBottomBar,
             Scroll,
-            GoodsList
+            GoodsList,
+            BackTop,
+            Toast
         },
         mixin: [itemListenerMixin],
         data(){
@@ -63,7 +75,10 @@
                 // itemImgListener: null
                 themeTopYs: [],
                 getThemeTopY: null,
-                currentIndex: 0
+                currentIndex: 0,
+                isShowBackTop: false,
+                toastMessage: '',
+                toastShow: false
             }
         },
         created() {
@@ -153,11 +168,11 @@
 
         },
         mounted(){
-            /*const newFefresh = debounce(this.$refs.scroll.refresh, 500)
+            const newFefresh = debounce(this.$refs.scroll.refresh, 500)
             this.itemImgListener =  ()=> {
                 newFefresh()
             }
-            this.$bus.$on('itemImgLoad', this.itemImgListener)*/
+            this.$bus.$on('imageLoad', this.itemImgListener)
             // console.log('mounted');
         },
         updated(){
@@ -172,34 +187,34 @@
             // 推荐的offsetTop
             this.themeTopYs.push(this.$refs.recommend.$el.offsetTop)
             this.themeTopYs.push(Number.MAX_VALUE)
-            console.log(this.themeTopYs);
+            // console.log(this.themeTopYs);
         },
         // 因为detail中没有做缓存
         destroyed(){
             this.$bus.$off('itemImgLoad', this.itemImgListener)
         },
         methods:{
+            ...mapActions(['addCart']),
             imageLoad(){
                 this.$refs.scroll.refresh()
                 // 获取offsetTop值
                 // this.getThemeTopY()
 
-                // // 先清空themeTopYs数据，再添加数据
-                // this.themeTopYs = []
-                // // 商品的offsetTop，就是0
-                // this.themeTopYs.push(0)
-                // // 参数的offsetTop
-                // this.themeTopYs.push(this.$refs.params.$el.offsetTop)
-                // // 评论的offsetTop
-                // this.themeTopYs.push(this.$refs.comment.$el.offsetTop)
-                // // 推荐的offsetTop
-                // this.themeTopYs.push(this.$refs.recommend.$el.offsetTop)
-                // this.themeTopYs.push(Number.MAX_VALUE)
-                // console.log(this.themeTopYs);
-
+                /*// 先清空themeTopYs数据，再添加数据
+                this.themeTopYs = []
+                // 商品的offsetTop，就是0
+                this.themeTopYs.push(0)
+                // 参数的offsetTop
+                this.themeTopYs.push(this.$refs.params.$el.offsetTop)
+                // 评论的offsetTop
+                this.themeTopYs.push(this.$refs.comment.$el.offsetTop)
+                // 推荐的offsetTop
+                this.themeTopYs.push(this.$refs.recommend.$el.offsetTop)
+                this.themeTopYs.push(Number.MAX_VALUE)
+                console.log(this.themeTopYs);*/
             },
             titleClick(index){
-                console.log(index);
+                // console.log(index);
                 // console.log(this.themeTopYs[index]);
                 const height = this.themeTopYs[index]
                 // console.log(height);
@@ -236,10 +251,57 @@
                     // 优化上面这段if判断代码
                     if(this.currentIndex !== i && (positionY >= this.themeTopYs[i] && positionY <= this.themeTopYs[i+1])) {
                         this.currentIndex = i ;
-                        console.log(this.currentIndex);
+                        // console.log(this.currentIndex);
                         this.$refs.nav.currentIndex = this.currentIndex
                     }
                 }
+
+                // 3.是否显示回到顶部
+                this.isShowBackTop = (-position.y) > 1000
+            },
+            // 回到顶部功能
+            backClick(){
+                // console.log('backClick');
+                // this.$refs.scroll.scroll.scrollTo(0, 0, 5000)
+                this.$refs.scroll.scrollTo(0, 0)
+            },
+            // 添加至购物车功能
+            addToCart(){
+                // console.log('addToCart');
+                // 1.获取购物车需要展示商品信息
+                const product = {};
+                product.image = this.topImages[0];
+                product.title = this.goods.title;
+                product.desc = this.goods.desc;
+                product.price = this.goods.realPrice;
+                product.iid = this.gid;
+                // 2.将商品添加到购物车中
+                // 2.1 方法一：mutations中的方法
+                // this.$store.commit('addCart', product)
+                // 2.2 方法二： actions中的方法
+                /*this.$store.dispatch('addCart', product).then(res => {
+                    console.log(res);
+                })*/
+                // 2.3 方法三： 使用mapActions
+                this.addCart(product).then(res => {
+                    /*// 设置弹窗为true即显示弹窗
+                    this.toastShow = true;
+                    // 将返回的结果赋值给弹窗信息
+                    this.toastMessage = res;
+                    console.log(res);
+                    // 1.5秒后弹窗消失
+                    setTimeout(() => {
+                        // 弹窗消失
+                        this.toastShow = false;
+                        // 内容清空
+                        this.toastMessage = '';
+                    }, 1500)*/
+
+                    this.$toast.show(res, 1500)
+
+                    // console.log(this.$toast);
+                })
+                // console.log(product);
             }
         }
     }
@@ -248,7 +310,7 @@
 <style scoped>
     #detail {
         position: relative;
-        z-index: 9;
+        z-index: 1;
         background-color: #fff;
         height: 100vh;
     }
